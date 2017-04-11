@@ -17,5 +17,9 @@ module AdvancedMath
     def [](index)
       rows[index]
     end
+
+    def to_h
+      { rows: rows }
+    end
   end
 end
