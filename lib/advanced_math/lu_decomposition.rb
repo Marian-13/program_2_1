@@ -8,20 +8,33 @@ module AdvancedMath
     end
 
     def decomposed_matrix
-      indices = 0...decomposed_matrix_size
+      decomposed_matrix_row_size    = determine_decomposed_matrix_row_size
+      decomposed_matrix_column_size = determine_decomposed_matrix_column_size
 
-      mutable_matrix =
+      indices = 0...decomposed_matrix_column_size
+
+      mutable_matrix = MutableMatrix.new(
+        row_size: decomposed_matrix_row_size,
+        column_size: decomposed_matrix_column_size
+      )
+
       indices.each do |k|
         indices.each do |i|
           indices.each do |j|
+            # mutable_matrix[][] =  
           end
         end
       end
     end
 
     private
-      def decomposed_matrix_size
-        matrix.size
+      def determine_decomposed_matrix_row_size
+        matrix.row_size
+      end
+
+      def determine_decomposed_matrix_column_size
+        # TODO
+        matrix.column_size
       end
   end
 end
