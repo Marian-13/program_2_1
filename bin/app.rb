@@ -1,4 +1,5 @@
 require './lib/advanced_math'
+require './lib/printer'
 
 include AdvancedMath
 
@@ -17,14 +18,17 @@ column_vector = ColumnVector.new(elements: elements)
 #   column_matrix: column_matrix,
 #   row_vector: row_vector
 # ).call
-
-result_by_row_form = SolveByKJIFormOfLUDecomposition.new(
-  row_matrix: row_matrix,
-  column_vector: column_vector
-).call
-
+#
+# result_by_row_form = SolveByKJIFormOfLUDecomposition.new(
+#   row_matrix: row_matrix,
+#   column_vector: column_vector
+# ).call
+#
 # p column_matrix
 # p result_by_column_form
+#
+# p row_matrix
+# p result_by_row_form
 
-p row_matrix
-p result_by_row_form
+Printer.print_row_matrix(row_matrix)
+Printer.print_column_matrix(column_matrix)

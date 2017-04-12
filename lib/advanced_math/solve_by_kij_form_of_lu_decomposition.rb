@@ -26,7 +26,8 @@ module AdvancedMath
         end
       end
 
-      RowMatrix.new(rows: result.elements)
+      # RowMatrix.new(rows: result.elements)
+      ColumnMatrix.new(columns: result.elements)
     end
 
     private

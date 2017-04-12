@@ -12,20 +12,19 @@ module AdvancedMath
       decomposed_matrix_row_size    = determine_decomposed_matrix_row_size
       decomposed_matrix_column_size = determine_decomposed_matrix_column_size
 
-
       result = MutableMatrix.new(
         row_size: decomposed_matrix_row_size,
         column_size: decomposed_matrix_row_size,
         matrix: row_matrix
       )
 
-      (0...decomposed_matrix_row_size).each do |k|
-        print "k = #{k};"
+      (0...(decomposed_matrix_row_size - 1)).each do |k|
+        # print "k = #{k};"
 
-        ((k + 1)..decomposed_matrix_column_size).each do |j|
-          print " j = #{j};"
-          ((k + 1)..decomposed_matrix_row_size).each do |i|
-            print " i = #{i}.\n"
+        ((k + 1)...decomposed_matrix_column_size).each do |j|
+          # print " j = #{j};"
+          ((k + 1)...decomposed_matrix_row_size).each do |i|
+            # print " i = #{i}.\n"
             # print "k = #{k}; i = #{i}; j = #{j}.\n"
             # print "result[i][j] = #{result[i][j]}\n"
             # print "result[i][k] = #{result[i][k]}\n"
