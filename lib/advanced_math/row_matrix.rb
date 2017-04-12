@@ -2,8 +2,8 @@ module AdvancedMath
   class RowMatrix
     attr_reader :rows
 
-    def initialize(attrs)
-      @rows = attrs[:rows]
+    def initialize(rows = nil, **attrs_hash)
+      @rows = rows || attrs_hash[:rows]
     end
 
     def row_size

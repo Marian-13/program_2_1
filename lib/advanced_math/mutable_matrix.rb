@@ -27,6 +27,10 @@ module AdvancedMath
       elements[index]
     end
 
+    def []=(index, value)
+      elements[index] = value
+    end
+
     private
       def initialize_elements(matrix, default_value)
         if matrix
