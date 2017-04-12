@@ -5,12 +5,12 @@ module AdvancedMath
     attr_reader :size, :elements, :vector
 
     # TODO Extract methods
-    def initialize(attrs)
-      @size     = attrs[:size]
-      @vector   = attrs[:vector]
+    def initialize(attrs_hash)
+      @size     = attrs_hash[:size]
+      @vector   = attrs_hash[:vector]
       @elements = initialize_elements(
         @vector,
-        attrs[:default_value]
+        attrs_hash[:default_value]
       )
     end
 

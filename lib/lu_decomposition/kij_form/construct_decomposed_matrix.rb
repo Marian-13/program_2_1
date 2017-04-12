@@ -16,7 +16,8 @@ module LUDecomposition
           end
         end
 
-        matrix.class.new(result.elements)
+        # TODO Generic matrix
+        RowMatrix.new(rows: result.elements)
       end
     end
   end
