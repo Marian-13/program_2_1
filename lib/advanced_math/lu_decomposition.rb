@@ -11,20 +11,22 @@ module AdvancedMath
       decomposed_matrix_row_size    = determine_decomposed_matrix_row_size
       decomposed_matrix_column_size = determine_decomposed_matrix_column_size
 
-      indices = 0...decomposed_matrix_column_size
-
-      mutable_matrix = MutableMatrix.new(
+      result = MutableMatrix.new(
         row_size: decomposed_matrix_row_size,
-        column_size: decomposed_matrix_column_size
+        column_size: decomposed_matrix_column_size,
+        matrix: matrix
       )
 
-      indices.each do |k|
-        indices.each do |i|
-          indices.each do |j|
-            # mutable_matrix[][] =  
+      (0...matrix.row_size).each do |k|
+        ((k + 1)...matrix.column_size).each do |i|
+          ((k + 1)...matrix.column_size).each do |j|
+            result[i][j] =
+              result[i][j] - (result[i][k] / result[k][k]) * result[k][j]
           end
         end
       end
+
+      RowMatrix.new(rows: result.elements)
     end
 
     private

@@ -1,6 +1,6 @@
 module AdvancedMath
-  # TODO Column and Row vectors abstraction
-  class ColumnVector
+  # TODO Row and Column vectors abstraction
+  class RowVector
     attr_reader :elements
 
     def initialize(attrs)

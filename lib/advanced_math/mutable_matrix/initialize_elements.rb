@@ -18,14 +18,12 @@ module AdvancedMath
         )
 
         if row_size <= matrix.row_size && column_size <= matrix.column_size
-          puts "<= <="
           (0...row_size).each do |i|
             (0...column_size).each do |j|
               mutable_matrix[i][j] = matrix[i][j]
             end
           end
         elsif row_size > matrix.row_size && column_size <= matrix.column_size
-          puts "> <="
           (0...matrix.row_size).each do |i|
             (0...column_size).each do |j|
               mutable_matrix[i][j] = matrix[i][j]
@@ -38,7 +36,6 @@ module AdvancedMath
             end
           end
         elsif row_size <= matrix.row_size && column_size > matrix.column_size
-          puts "<= >"
           (0...row_size).each do |i|
             (0...matrix.column_size).each do |j|
               mutable_matrix[i][j] = matrix[i][j]
@@ -51,7 +48,6 @@ module AdvancedMath
             end
           end
         else
-          puts "> >"
           (0...matrix.row_size).each do |i|
             (0...matrix.column_size).each do |j|
               mutable_matrix[i][j] = matrix[i][j]
