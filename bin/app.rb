@@ -19,9 +19,14 @@ elements = [1, 5, 12]
 column_vector = ColumnVector.new(elements: elements)
 
 p Timer.new {
-  p KIJForm::SolveSLE.new(matrix: row_matrix, vector: column_vector).call
+  p SequentialServices::KIJForm::SolveSLE.new(
+    matrix: row_matrix,
+    vector: column_vector
+  ).call
 }.execution_time
 
 p Timer.new {
-  p KJIForm::SolveSLE.new(matrix: row_matrix, vector: column_vector).call
+  p SequentialServices::KJIForm::SolveSLE.new(
+    matrix: row_matrix, vector: column_vector
+  ).call
 }.execution_time

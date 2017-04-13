@@ -1,6 +1,5 @@
 require_relative 'lu_decomposition/abstract_form'
-require_relative 'lu_decomposition/kij_form'
-require_relative 'lu_decomposition/kji_form'
-require_relative 'lu_decomposition/perform_back_substitution'
+require_relative 'lu_decomposition/sequential_services'
+require_relative 'lu_decomposition/parallel_services'
 
 module LUDecomposition; end
