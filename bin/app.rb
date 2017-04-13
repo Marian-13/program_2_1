@@ -5,6 +5,7 @@ require './lib/advanced_math'
 require './lib/lu_decomposition'
 require './lib/printer'
 require './lib/timer'
+require './lib/generate_square_row_matrix_with_self_incrementing_elements'
 
 include AdvancedMath
 include LUDecomposition
@@ -31,8 +32,7 @@ include LUDecomposition
 #   ).call
 # }.execution_time
 
-rows = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-square_row_matrix = SquareRowMatrix.new(rows: rows)
-p SquareRowMatrix::ComputeDeterminant.new(
-  square_row_matrix: square_row_matrix
+p GenerateSquareRowMatrixWithSelfIncrementingElements.new(
+  first_element: 1,
+  size: 1000
 ).call
