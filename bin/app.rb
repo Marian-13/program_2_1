@@ -1,7 +1,10 @@
+#!/usr/bin/env ruby
+
 require './lib/abstract_call'
 require './lib/advanced_math'
 require './lib/lu_decomposition'
 require './lib/printer'
+require './lib/timer'
 
 include AdvancedMath
 include LUDecomposition
@@ -15,26 +18,10 @@ row_matrix = RowMatrix.new(rows: rows)
 elements = [1, 5, 12]
 column_vector = ColumnVector.new(elements: elements)
 
-decomposed_matrix_by_kij_form = KIJForm::ConstructDecomposedMatrix.new(
-  matrix: row_matrix,
-  vector: column_vector
-).call
-Printer.print_row_matrix decomposed_matrix_by_kij_form
+p Timer.new {
+  p KIJForm::SolveSLE.new(matrix: row_matrix, vector: column_vector).call
+}.execution_time
 
-decomposed_matrix_by_kji_form = KJIForm::ConstructDecomposedMatrix.new(
-  matrix: row_matrix,
-  vector: column_vector
-).call
-Printer.print_row_matrix decomposed_matrix_by_kji_form
-
-x_by_kij_form = PerformBackSubstitution.new(
-  decomposed_matrix: decomposed_matrix_by_kij_form,
-  vector: column_vector
-).call
-p x_by_kij_form
-
-x_by_kji_form = PerformBackSubstitution.new(
-  decomposed_matrix: decomposed_matrix_by_kji_form,
-  vector: column_vector
-).call
-p x_by_kji_form
+p Timer.new {
+  p KJIForm::SolveSLE.new(matrix: row_matrix, vector: column_vector).call
+}.execution_time
