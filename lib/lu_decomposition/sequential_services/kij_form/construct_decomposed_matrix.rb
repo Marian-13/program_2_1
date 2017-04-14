@@ -14,7 +14,7 @@ module LUDecomposition
             main_element_row_index = find_main_element_row_index(result, k)
 
             if main_element_row_index != k
-              result.swap_rows(k, main_element_row_index)
+              result.swap_rows!(k, main_element_row_index)
             end
 
             ((k + 1)...result_row_size).each do |i|

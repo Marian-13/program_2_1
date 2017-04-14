@@ -20,7 +20,7 @@ module LUDecomposition
         def prepare_decomposed_matrix(row_size, column_size)
           decomposed_matrix = MutableMatrix.new(
             row_size: row_size,
-            column_size: row_size,
+            column_size: column_size,
           )
 
           decomposed_matrix.row_size.times do |i|

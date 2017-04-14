@@ -31,9 +31,15 @@ module AdvancedMath
       elements[index] = value
     end
 
-    def swap_rows(first_index, second_index)
+    def swap_rows!(first_index, second_index)
       elements[first_index], elements[second_index] =
-        elements[second_index], elements[first_index]
+        elements[second_index].clone, elements[first_index].clone
+
+      # (0...column_size).each do |j|
+      #   elements[first_index][j]  = elements[first_index][j] + elements[second_index][j]
+      #   elements[second_index][j] = elements[first_index][j] - elements[second_index][j]
+      #   elements[first_index][j]  = elements[first_index][j] - elements[second_index][j]
+      # end
     end
 
     private

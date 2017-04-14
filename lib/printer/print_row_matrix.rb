@@ -4,9 +4,9 @@ class PrintRowMatrix
   attr_reader :io, :row_matrix
 
   # TODO Extract method
-  def initialize(attrs)
-    @io         = attrs[:io] || STDOUT
-    @row_matrix = attrs[:row_matrix]
+  def initialize(attrs_hash)
+    @io         = attrs_hash[:io] || STDOUT
+    @row_matrix = attrs_hash[:row_matrix]
   end
 
   def call
