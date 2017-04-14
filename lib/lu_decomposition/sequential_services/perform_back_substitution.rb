@@ -25,8 +25,7 @@ module LUDecomposition
           result[i] =  mutable_vector_y[i] / matrix_u[i][i]
         end
 
-        # TODO Generic vector
-        ColumnVector.new(elements: result.elements)
+        Vector.new(elements: result.elements)
       end
 
       private
@@ -40,11 +39,10 @@ module LUDecomposition
           (0...size).each do |i|
             (0...size).each do |j|
               mutable_matrix_u[i][j] = decomposed_matrix[i][j]
-            end
           end
+        end
 
-          # TODO Generic matrix
-          RowMatrix.new(rows: mutable_matrix_u.elements)
+          Matrix.new(elements: mutable_matrix_u.elements)
         end
 
         def extract_vector_y(size)
@@ -54,8 +52,7 @@ module LUDecomposition
             mutable_vector_y[i] = decomposed_matrix[i][size]
           end
 
-          # TODO Generic vector
-          ColumnVector.new(elements: mutable_vector_y.elements)
+          Vector.new(elements: mutable_vector_y.elements)
         end
     end
   end

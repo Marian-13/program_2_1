@@ -1,8 +1,8 @@
 require_relative 'mutable_vector/initialize_elements'
 
 module AdvancedMath
-  class MutableVector
-    attr_reader :size, :elements, :vector
+  class MutableVector < AbstractVector
+    attr_reader :vector
 
     # TODO Extract methods
     def initialize(attrs_hash)
@@ -16,10 +16,6 @@ module AdvancedMath
 
     def size
       @size ||= vector.size
-    end
-
-    def [](index)
-      elements[index]
     end
 
     def []=(index, value)

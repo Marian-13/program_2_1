@@ -1,6 +1,7 @@
 module LUDecomposition
   module SequentialServices
     module KIJForm
+      # TODO Abstraction
       class SolveSLE < AbstractForm::SolveSLE
         def call
           decomposed_matrix = ConstructDecomposedMatrix.new(

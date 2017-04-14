@@ -1,5 +1,5 @@
 module AdvancedMath
-  class MutableMatrix
+  class MutableMatrix < AbstractMatrix
     class InitializeElements
       attr_reader :row_size, :column_size, :matrix, :default_value
 

@@ -9,6 +9,7 @@ module LUDecomposition
 
           result = prepare_decomposed_matrix(result_row_size, result_column_size)
 
+          # TODO Temporary variable
           (0...(result_row_size - 1)).each do |k|
             ((k + 1)...result_row_size).each do |i|
               ((k + 1)...result_column_size).each do |j|
@@ -17,8 +18,7 @@ module LUDecomposition
             end
           end
 
-          # TODO Generic matrix
-          RowMatrix.new(rows: result.elements)
+          Matrix.new(elements: result.elements)
         end
       end
     end

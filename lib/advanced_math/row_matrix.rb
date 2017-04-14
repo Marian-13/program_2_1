@@ -1,5 +1,5 @@
 module AdvancedMath
-  class RowMatrix
+  class RowMatrix < AbstractMatrix
     attr_reader :rows
 
     def initialize(rows = nil, **attrs_hash)
@@ -16,6 +16,10 @@ module AdvancedMath
 
     def [](index)
       rows[index]
+    end
+
+    def to_a
+      rows
     end
 
     def to_h

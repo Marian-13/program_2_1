@@ -1,5 +1,5 @@
 module AdvancedMath
-  class MutableVector
+  class MutableVector < AbstractVector
     class InitializeElements
       attr_reader :size, :vector, :default_value
 

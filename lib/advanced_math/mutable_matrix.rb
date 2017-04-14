@@ -1,7 +1,7 @@
 require_relative 'mutable_matrix/initialize_elements'
 
 module AdvancedMath
-  class MutableMatrix
+  class MutableMatrix < AbstractMatrix
     attr_reader :row_size, :column_size, :elements, :matrix
 
     # TODO Extract methods

@@ -1,22 +1,7 @@
 module AdvancedMath
-  # TODO Row and Column vectors abstraction
-  class RowVector
-    attr_reader :elements
-
-    def initialize(attrs)
-      @elements = attrs[:elements]
-    end
-
-    def size
-      @size ||= elements.size
-    end
-
-    def [](index)
-      elements[index]
-    end
-
-    def to_h
-      { elements: elements }
+  class RowVector < AbstractVector
+    def initialize(attrs_hash)
+      @elements = attrs_hash[:elements]
     end
   end
 end
