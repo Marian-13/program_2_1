@@ -31,6 +31,11 @@ module AdvancedMath
       elements[index] = value
     end
 
+    def swap_rows(first_index, second_index)
+      elements[first_index], elements[second_index] =
+        elements[second_index], elements[first_index]
+    end
+
     private
       def initialize_elements(matrix, default_value)
         if matrix

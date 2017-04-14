@@ -10,9 +10,14 @@ class PrintRowMatrix
   end
 
   def call
-    row_matrix.rows.each do |row|
-      io.print row
-      io.puts
+    row_matrix.row_size.times do |i|
+      io.print '[ '
+
+      row_matrix.column_size.times do |j|
+        io.print row_matrix[i][j], ' '
+      end
+
+      io.puts ']'
     end
   end
 end

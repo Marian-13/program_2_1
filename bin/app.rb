@@ -5,34 +5,43 @@ require './lib/advanced_math'
 require './lib/lu_decomposition'
 require './lib/printer'
 require './lib/timer'
-require './lib/generate_square_row_matrix_with_self_incrementing_elements'
+require './lib/generate_self_incrementing_vector_elements'
+require './lib/generate_self_incrementing_matrix_elements'
+require './lib/generate_symmetric_toeplitz_matrix_elements'
 
 include AdvancedMath
 include LUDecomposition
 
-# p.125; p.367.
-
 # Such algorithms of LU decompositions work only for row matrices
-rows = [[-1, 1, 0], [0, 2, 1], [-1, 5, 3]]
-row_matrix = RowMatrix.new(rows: rows)
+vector_elements = GenerateSelfIncrementingVectorElements.new(
+  first_element: 1,
+  size: 10
+).call
+p vector_elements
 
-elements = [1, 5, 12]
-column_vector = ColumnVector.new(elements: elements)
+matrix_elements = GenerateSelfIncrementingMatrixElements.new(
+  first_element: 1,
+  row_size: 3,
+  column_size: 3
+).call
+p matrix_elements
 
-p Timer.new {
-  p SequentialServices::KIJForm::SolveSLE.new(
-    matrix: row_matrix,
-    vector: column_vector
-  ).call
-}.execution_time
+matrix_elements = GenerateSymmetricToeplitzMatrixElements.new(
+  first_row_elements: vector_elements
+).call
+p matrix_elements
 
-p Timer.new {
-  p SequentialServices::KJIForm::SolveSLE.new(
-    matrix: row_matrix, vector: column_vector
-  ).call
-}.execution_time
+square_row_matrix = SquareRowMatrix.new(rows: matrix_elements)
+column_vector     = ColumnVector.new(elements: vector_elements)
 
-# p GenerateSquareRowMatrixWithSelfIncrementingElements.new(
-#   first_element: 1,
-#   size: 1000
-# ).call
+decomposed_matrix = SequentialServices::KIJForm::ConstructDecomposedMatrix.new(
+  matrix: square_row_matrix,
+  vector: column_vector
+).call
+p decomposed_matrix
+
+sle_solution = SequentialServices::KIJForm::SolveSLE.new(
+  matrix: square_row_matrix,
+  vector: column_vector
+).call
+p sle_solution
