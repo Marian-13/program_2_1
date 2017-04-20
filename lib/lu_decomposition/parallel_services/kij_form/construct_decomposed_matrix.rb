@@ -16,6 +16,11 @@ module LUDecomposition
             matrix: decomposed_matrix
           ).call
 
+          # processors_row_indices = LayerSchemeWithImages::GenerateProcessorsRowIndices.new(
+          #   processors_amount: 3,
+          #   matrix: decomposed_matrix
+          # ).call
+
           # Matrix.new(elements: decomposed_matrix.elements)
         end
       end
