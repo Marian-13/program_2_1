@@ -16,7 +16,7 @@ include LUDecomposition
 # Such algorithms of LU decompositions work only for row matrices
 vector_elements = GenerateSelfIncrementingVectorElements.new(
   first_element: 1.0,
-  size: 10
+  size: 9
 ).call
 p vector_elements
 
@@ -34,14 +34,14 @@ column_vector     = ColumnVector.new(elements: vector_elements)
 # ).call
 # p decomposed_matrix
 
-sle_solution = SequentialServices::KIJForm::SolveSLE.new(
-  matrix: square_row_matrix,
-  vector: column_vector
-).call
-p sle_solution
-
-# decomposed_matrix = ParallelServices::KIJForm::ConstructDecomposedMatrix.new(
+# sle_solution = SequentialServices::KIJForm::SolveSLE.new(
 #   matrix: square_row_matrix,
 #   vector: column_vector
 # ).call
-# p decomposed_matrix
+# p sle_solution
+
+decomposed_matrix = ParallelServices::KIJForm::ConstructDecomposedMatrix.new(
+  matrix: square_row_matrix,
+  vector: column_vector
+).call
+p decomposed_matrix

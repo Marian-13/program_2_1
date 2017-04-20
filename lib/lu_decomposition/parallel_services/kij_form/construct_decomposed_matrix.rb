@@ -3,22 +3,6 @@ module LUDecomposition
     module KIJForm
       class ConstructDecomposedMatrix < AbstractForm::ConstructDecomposedMatrix
         def call
-          # result_row_size    = determine_decomposed_matrix_row_size
-          # result_column_size = determine_decomposed_matrix_column_size
-          #
-          # result = prepare_decomposed_matrix(result_row_size, result_column_size)
-          #
-          # (0...(result_row_size - 1)).each do |k|
-          #   ((k + 1)...result_row_size).each do |i|
-          #     ((k + 1)...result_column_size).each do |j|
-          #       result[i][j] -= (result[i][k] / result[k][k]) * result[k][j]
-          #     end
-          #   end
-          # end
-          #
-          # # TODO Generic matrix
-          # RowMatrix.new(rows: result.elements)
-
           result_row_size    = determine_decomposed_matrix_row_size
           result_column_size = determine_decomposed_matrix_column_size
 
@@ -27,11 +11,12 @@ module LUDecomposition
             result_column_size
           )
 
-          cyclic_layer_scheme = CyclicLayerScheme.new(
+          processors_row_indices = CyclicLayerScheme::GenerateProcessorsRowIndices.new(
+            processors_amount: 3,
             matrix: decomposed_matrix
-          )
+          ).call
 
-          cyclic_layer_scheme.start
+          # Matrix.new(elements: decomposed_matrix.elements)
         end
       end
     end
