@@ -12,27 +12,30 @@ require './lib/generate_symmetric_toeplitz_matrix_elements'
 include AdvancedMath
 include LUDecomposition
 
+size = 2
+puts "processors = 2"
+puts "size = #{size}"
+
 # FLOAT AS INPUT DATA !!!
 # Such algorithms of LU decompositions work only for row matrices
 vector_elements = GenerateSelfIncrementingVectorElements.new(
   first_element: 1.0,
-  size: 9
+  size: size
 ).call
-p vector_elements
 
 matrix_elements = GenerateSymmetricToeplitzMatrixElements.new(
   first_row_elements: vector_elements
 ).call
-p matrix_elements
 
 square_row_matrix = SquareRowMatrix.new(rows: matrix_elements)
 column_vector     = ColumnVector.new(elements: vector_elements)
 
-# decomposed_matrix = SequentialServices::KIJForm::ConstructDecomposedMatrix.new(
-#   matrix: square_row_matrix,
-#   vector: column_vector
-# ).call
-# p decomposed_matrix
+p Timer.new {
+  decomposed_matrix = SequentialServices::KIJForm::ConstructDecomposedMatrix.new(
+    matrix: square_row_matrix,
+    vector: column_vector
+  ).call
+}.execution_time
 
 # sle_solution = SequentialServices::KIJForm::SolveSLE.new(
 #   matrix: square_row_matrix,
@@ -40,8 +43,46 @@ column_vector     = ColumnVector.new(elements: vector_elements)
 # ).call
 # p sle_solution
 
-decomposed_matrix = ParallelServices::KIJForm::ConstructDecomposedMatrix.new(
-  matrix: square_row_matrix,
-  vector: column_vector
+p Timer.new {
+  decomposed_matrix = ParallelServices::KIJForm::ConstructDecomposedMatrix.new(
+    matrix: square_row_matrix,
+    vector: column_vector
+  ).call
+}.execution_time
+
+size = 300
+puts "processors = 2"
+puts "size = #{size}"
+
+vector_elements = GenerateSelfIncrementingVectorElements.new(
+  first_element: 1.0,
+  size: size
 ).call
-p decomposed_matrix
+
+matrix_elements = GenerateSymmetricToeplitzMatrixElements.new(
+  first_row_elements: vector_elements
+).call
+
+square_row_matrix = SquareRowMatrix.new(rows: matrix_elements)
+column_vector     = ColumnVector.new(elements: vector_elements)
+
+p Timer.new {
+  decomposed_matrix = SequentialServices::KIJForm::ConstructDecomposedMatrix.new(
+    matrix: square_row_matrix,
+    vector: column_vector
+  ).call
+}.execution_time
+
+# sle_solution = SequentialServices::KIJForm::SolveSLE.new(
+#   matrix: square_row_matrix,
+#   vector: column_vector
+# ).call
+# p sle_solution
+
+decomposed_matrix = nil
+p Timer.new {
+  decomposed_matrix = ParallelServices::KIJForm::ConstructDecomposedMatrix.new(
+    matrix: square_row_matrix,
+    vector: column_vector
+  ).call
+}.execution_time

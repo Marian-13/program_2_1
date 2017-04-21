@@ -16,7 +16,7 @@ module LUDecomposition
             if main_element_row_index != k
               result.swap_rows!(k, main_element_row_index)
             end
-
+            
             ((k + 1)...result_row_size).each do |i|
               ((k + 1)...result_column_size).each do |j|
                 result[i][j] -= (result[i][k] / result[k][k]) * result[k][j]
@@ -26,14 +26,6 @@ module LUDecomposition
 
           Matrix.new(elements: result.elements)
         end
-
-        private
-          def find_main_element_row_index(decomposed_matrix, index)
-            FindMainElementRowIndex.new(
-              matrix: decomposed_matrix,
-              index: index
-            ).call
-          end
       end
     end
   end
