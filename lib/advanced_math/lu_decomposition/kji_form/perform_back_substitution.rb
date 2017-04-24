@@ -1,7 +1,7 @@
 module AdvancedMath
   module LUDecomposition
     module KJIForm
-      class ConstructDecomposedMatrix < AbstractForm::ConstructDecomposedMatrix
+      class PerformBackSubstitution < AbstractForm::PerformBackSubstitution
         def call
           # TODO
         end

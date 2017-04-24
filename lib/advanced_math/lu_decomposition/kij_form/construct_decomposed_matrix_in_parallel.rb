@@ -2,6 +2,15 @@ module AdvancedMath
   module LUDecomposition
     module KIJForm
       class ConstructDecomposedMatrixInParallel < AbstractForm::ConstructDecomposedMatrix
+        attr_reader :processors_amount, :processors
+
+        def initialize(attrs_hash)
+          super(attrs_hash)
+
+          @processors_amount = attrs_hash[:processors_amount]
+          @processors        = attrs_hash[:processors]
+        end
+
         def call
           result_row_size    = determine_decomposed_matrix_row_size
           result_column_size = determine_decomposed_matrix_column_size
@@ -11,15 +20,6 @@ module AdvancedMath
             result_column_size
           )
 
-          processors_amount = 2
-
-          processors_row_indices = CyclicLayerScheme::GenerateProcessorsRowIndices.new(
-            processors_amount: processors_amount,
-            matrix: decomposed_matrix
-          ).call
-
-          processors = Array.new(processors_amount)
-
           (0...(result_row_size - 1)).each do |k|
             main_element_row_index = find_main_element_row_index(decomposed_matrix, k)
 
@@ -27,67 +27,25 @@ module AdvancedMath
               decomposed_matrix.swap_rows!(k, main_element_row_index)
             end
 
-            (0...processors_amount).each do |i|
-              processors[i] = Processor.new(
-                row_indices: processors_row_indices[i],
-                &->(row_indices) {
-                  ((k + 1)...result_row_size).each do |i|
+            (0...processors_amount).each do |processor_index|
+              processors[processor_index].add_task do |row_indices|
+                ((k + 1)...result_row_size).each do |i|
 
-                    if row_indices.include? i
-                      ((k + 1)...result_column_size).each do |j|
-                        decomposed_matrix[i][j] -=
-                          (decomposed_matrix[i][k] / decomposed_matrix[k][k]) *
-                            decomposed_matrix[k][j]
-                      end
+                  if row_indices.include? i
+                    ((k + 1)...result_column_size).each do |j|
+                      decomposed_matrix[i][j] -=
+                        (decomposed_matrix[i][k] / decomposed_matrix[k][k]) *
+                          decomposed_matrix[k][j]
                     end
                   end
-                }
-              )
+                end
+              end
             end
 
-            processors.each(&:join)
+            processors.each(&:wait)
           end
 
-          # processors = Array.new(processors_amount)
-          #
-          # (0...processors_amount).each do |i|
-          #   processors[i] = Processor.new(
-          #     row_indices: processors_row_indices[i],
-          #     tasks_amount: result_row_size - 1
-          #   )
-          # end
-          #
-          # (0...(result_row_size - 1)).each do |k|
-          #   main_element_row_index = find_main_element_row_index(decomposed_matrix, k)
-          #
-          #   if main_element_row_index != k
-          #     decomposed_matrix.swap_rows!(k, main_element_row_index)
-          #   end
-          #
-          #   (0...processors_amount).each do |processor_index|
-          #     processors[processor_index].add_task do |row_indices|
-          #       ((k + 1)...result_row_size).each do |i|
-          #
-          #         if row_indices.include? i
-          #           ((k + 1)...result_column_size).each do |j|
-          #             decomposed_matrix[i][j] -=
-          #               (decomposed_matrix[i][k] / decomposed_matrix[k][k]) *
-          #                 decomposed_matrix[k][j]
-          #           end
-          #         end
-          #       end
-          #     end
-          #   end
-          #
-          #   processors_enumerator = processors.enum_for(:each)
-          #
-          #   loop do
-          #     processor = processors_enumerator.next
-          #     processors_enumerator.rewind if processor.active?
-          #   end
-          # end
-          #
-          # processors.each(&:join)
+          processors.each(&:join)
 
           Matrix.new(elements: decomposed_matrix.elements)
         end

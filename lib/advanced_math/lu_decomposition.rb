@@ -2,9 +2,10 @@ require_relative 'lu_decomposition/find_main_element_row_index'
 require_relative 'lu_decomposition/abstract_form'
 require_relative 'lu_decomposition/kij_form'
 require_relative 'lu_decomposition/kji_form'
-require_relative 'lu_decomposition/processor' # TODO
 require_relative 'lu_decomposition/abstract_scheme'
 require_relative 'lu_decomposition/cyclic_layer_scheme'
 require_relative 'lu_decomposition/layer_scheme_with_images'
+require_relative 'lu_decomposition/processor'
+require_relative 'lu_decomposition/processor_based_on_infinite_threads'
 
 module LUDecomposition; end

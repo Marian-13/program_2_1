@@ -2,6 +2,15 @@ module AdvancedMath
   module LUDecomposition
     module KIJForm
       class PerformBackSubstitutionInParallel < AbstractForm::PerformBackSubstitution
+        attr_reader :processors_amount, :processors
+
+        def initialize(attrs_hash)
+          super(attrs_hash)
+
+          @processors_amount = attrs_hash[:processors_amount]
+          @processors        = attrs_hash[:processors]
+        end
+
         def call
           size = determine_matrix_u_size
 
@@ -11,15 +20,6 @@ module AdvancedMath
           mutable_vector_y = MutableVector.new(vector: vector_y)
 
           result = MutableVector.new(size: size)
-
-          processors_amount = 2
-
-          processors_row_indices = CyclicLayerScheme::GenerateProcessorsRowIndices.new(
-            processors_amount: processors_amount,
-            matrix: decomposed_matrix
-          ).call
-
-          processors = Array.new(processors_amount)
 
           (0...size).reverse_each do |i|
             ((i + 1)...size).each do |j|

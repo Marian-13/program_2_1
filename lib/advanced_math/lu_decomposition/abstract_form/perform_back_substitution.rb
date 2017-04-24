@@ -21,8 +21,8 @@ module AdvancedMath
             (0...size).each do |i|
               (0...size).each do |j|
                 mutable_matrix_u[i][j] = decomposed_matrix[i][j]
+              end
             end
-          end
 
             Matrix.new(elements: mutable_matrix_u.elements)
           end
